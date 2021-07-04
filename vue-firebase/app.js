@@ -2,12 +2,13 @@ const app = Vue.createApp({
     // template: '<h2>VUE Template</h2>'
     data() {
         return {
+            url: 'https://www.roblox.com',
             showBooks: true,
-            title: 'The Final Empire',
-            author: 'Brandon Sanderson',
-            age: 45,
-            x: 0,
-            y: 0
+            books: [
+                { title: 'name of the wind', author: 'patrick rothfuss', img: 'assets/1.jpg', isFav: true },
+                { title: 'the way of kings', author: 'brandon sanderson', img: 'assets/2.jpg', isFav: false },
+                { title: 'the final empire', author: 'brandon sanderson', img: 'assets/3.jpg', isFav: true }
+            ]
         }
     },
     methods: {
@@ -17,15 +18,13 @@ const app = Vue.createApp({
         toggleShowBooks() {
             this.showBooks = !this.showBooks;
         },
-        handleEvent(e, data) {
-            console.log('Handled', e.type, e);
-            if (data) {
-                console.log(data);
-            }
-        },
-        handleMouseMove(e) {
-            this.x = e.offsetX;
-            this.y = e.offsetY;
+        toggleFav(item) {
+            item.isFav = !item.isFav
+        }
+    },
+    computed: {
+        filteredBooks() {
+            return this.books.filter(x => x.isFav);
         }
     }
 });
